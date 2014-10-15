@@ -8,7 +8,7 @@ import_types_from 'base'
 using_task_library 'iodrivers_base'
 
 using_library "pressure_velki"
-import_types_from "pressure_velkiTypes.hpp"
+import_types_from "pressure_velki/DeviceInfo.hpp"
 
 task_context "Task" do
     needs_configuration
@@ -20,9 +20,12 @@ task_context "Task" do
     # By default, it is initialized to having a single device with ID 250
     # (point-to-point), which is fine if you are connected to only one
     # transmitter.
-    property 'devices', 'pressure_velki/Devices'
+    property 'id', 'int'
+    property 'channel', 'int', 0
 
-    dynamic_output_port /\w+/, '/base/samples/Pressure'
+    attribute 'info', 'pressure_velki/DeviceInfo'
+
+    output_port 'pressure_samples', '/base/samples/Pressure'
 
     # By default, the task will be periodic with a period of 0.1
     periodic 0.1

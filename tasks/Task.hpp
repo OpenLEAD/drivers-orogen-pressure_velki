@@ -4,6 +4,7 @@
 #define PRESSURE_VELKI_TASK_TASK_HPP
 
 #include "pressure_velki/TaskBase.hpp"
+#include <pressure_velki/DriverClass5_20.hpp>
 
 namespace pressure_velki {
 
@@ -24,9 +25,9 @@ namespace pressure_velki {
     class Task : public TaskBase
     {
 	friend class TaskBase;
+
     protected:
-
-
+        DriverClass5_20 m_driver;
 
     public:
         /** TaskContext constructor for Task
@@ -84,6 +85,8 @@ namespace pressure_velki {
          * it again. Finally, FatalError cannot be recovered.
          */
         void updateHook();
+
+        void processIO();
 
         /** This hook is called by Orocos when the component is in the
          * RunTimeError state, at each activity step. See the discussion in
