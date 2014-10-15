@@ -1,0 +1,30 @@
+name "pressure_velki"
+version "1.0"
+
+# If new data types need to be defined, they have to be put in a separate C++
+# header, and this header will be loaded here
+import_types_from "pressure_velkiTypes.hpp"
+import_types_from 'base'
+using_task_library 'iodrivers_base'
+
+using_library "pressure_velki"
+import_types_from "pressure_velkiTypes.hpp"
+
+task_context "Task" do
+    needs_configuration
+
+    subclasses 'iodrivers_base::Task'
+
+    # The device ID for the velki transmitter
+    #
+    # By default, it is initialized to having a single device with ID 250
+    # (point-to-point), which is fine if you are connected to only one
+    # transmitter.
+    property 'devices', 'pressure_velki/Devices'
+
+    dynamic_output_port /\w+/, '/base/samples/Pressure'
+
+    # By default, the task will be periodic with a period of 0.1
+    periodic 0.1
+end
+
