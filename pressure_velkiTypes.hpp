@@ -2,6 +2,7 @@
 #define pressure_velki_TYPES_HPP
 
 #include <string>
+#include <vector>
 
 namespace pressure_velki {
     /* One device on the Velki bus */
