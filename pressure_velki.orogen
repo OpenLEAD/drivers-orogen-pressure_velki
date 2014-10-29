@@ -26,6 +26,9 @@ task_context "Task" do
     attribute 'info', 'pressure_velki/DeviceInfo'
 
     output_port 'pressure_samples', '/base/samples/Pressure'
+    
+    #RigidBodySample representing the depth correspondent of the pressure sample 
+    output_port 'depth_samples', '/base/samples/RigidBodyState'
 
     # By default, the task will be periodic with a period of 0.1
     periodic 0.1

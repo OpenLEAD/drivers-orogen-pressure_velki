@@ -4,7 +4,11 @@
 
 #include <pressure_velki/Packet.hpp>
 
+#include <base/samples/RigidBodyState.hpp>
+
 using namespace pressure_velki;
+
+const double bar2meter = 10.1972;
 
 Task::Task(std::string const& name)
     : TaskBase(name)
@@ -55,6 +59,14 @@ void Task::updateHook()
     _pressure_samples.write(
         base::samples::Pressure(base::Time::now(), p)
     );
+    
+    base::samples::RigidBodyState depth_sample;
+    //conversion from pressure to meters
+    depth_sample.position =  Eigen::Vector3d(0, 0, -bar2meter*p.toBar());
+    depth_sample.orientation = base::Orientation::Identity();
+    depth_sample.time = base::Time::now();
+    _depth_samples.write(depth_sample);
+    
     TaskBase::updateHook();
 }
 void Task::processIO()
