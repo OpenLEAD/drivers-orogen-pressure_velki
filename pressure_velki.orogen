@@ -29,8 +29,10 @@ task_context "Task" do
     
     #RigidBodySample representing the depth correspondent of the pressure sample 
     output_port 'depth_samples', '/base/samples/RigidBodyState'
+    
+    property 'sensor_frame', '/std/string', 'depth_sensor_frame'
+    property 'world_frame', '/std/string', 'depth_world_frame'
 
     # By default, the task will be periodic with a period of 0.1
     periodic 0.1
 end
-

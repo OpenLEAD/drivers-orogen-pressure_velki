@@ -62,9 +62,11 @@ void Task::updateHook()
     
     base::samples::RigidBodyState depth_sample;
     //conversion from pressure to meters
-    depth_sample.position =  Eigen::Vector3d(0, 0, -bar2meter*p.toBar());
+    depth_sample.position =  Eigen::Vector3d(0, 0, bar2meter*p.toBar());
     depth_sample.orientation = base::Orientation::Identity();
     depth_sample.time = base::Time::now();
+    depth_sample.sourceFrame = _world_frame.get();
+    depth_sample.targetFrame = _sensor_frame.get();
     _depth_samples.write(depth_sample);
     
     TaskBase::updateHook();
